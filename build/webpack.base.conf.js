@@ -16,7 +16,7 @@ entryFiles.forEach(function(file) {
   entries[fileName] = file
 });
 
-var jadeTemplates = glob.sync("./src/pages/**/*.jade")
+var pugTemplates = glob.sync("./src/pages/**/*.pug")
 
 var webpackConfig = {
   entry: entries,
@@ -33,10 +33,10 @@ var webpackConfig = {
   },
   module: {
       loaders: [
-        // 编译jade
+        // 编译pug
         {
-          test: /\.jade$/,
-          loader: 'jade'
+          test: /\.pug$/,
+          loader: 'pug-html-loader'
         },
         // 预编译ES6
         {
@@ -72,7 +72,7 @@ var webpackConfig = {
 	}
 };
 
-jadeTemplates.forEach(function(template) {
+pugTemplates.forEach(function(template) {
   var fileName = path.parse(template).name
   var html = {
     filename:  fileName + ".html",
