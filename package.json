@@ -17,6 +17,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "glob": "^7.0.5",
     "html-webpack-plugin": "^2.22.0",
+<<<<<<< HEAD
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
     "jquery": "^3.1.0",
@@ -24,6 +25,13 @@
     "path": "^0.12.7",
     "postcss-loader": "^0.9.1",
     "sanitize.css": "^4.1.0",
+=======
+    "node-sass": "^3.8.0",
+    "path": "^0.12.7",
+    "postcss-loader": "^0.9.1",
+    "pug": "^2.0.0-beta4",
+    "pug-html-loader": "^1.0.8",
+>>>>>>> 1d8cd830fc25e42b6f441a5285bcb13c12233e1c
     "sass-loader": "^4.0.0",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
