@@ -1,14 +1,15 @@
-include ../head/head
-
-//- block vars
-  //- - var head = {}
+block vars
+  - var head = {}
+  - var current = 'main'
+  - var pageTitle = 'Jade, Stylus, ES6 & Webpack.'
 
 doctype html
 html(lang="zh-CN")
   head
-    //- +head(head)
-    include ../head/head
+    meta(charset="UTF-8")
+    title= pageTitle
+  
   body
-    main.main
-      block contents
+    include ../header/header
+    block content
     include ../footer/footer

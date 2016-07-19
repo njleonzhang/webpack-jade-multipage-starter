@@ -1,4 +1,4 @@
-import 'components/base/base.scss';
-import './about.scss';
+import 'components/base/base.scss'
+import './about.scss'
 
-console.log('关于');
+console.log('关于')
