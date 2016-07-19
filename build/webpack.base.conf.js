@@ -55,7 +55,7 @@ var webpackConfig = {
       ]
     },
   plugins: [
-      new ExtractTextPlugin('./static/style.css'),
+      new ExtractTextPlugin('./static/[name].css'),
       // new webpack.optimize.CommonsChunkPlugin({
       //   name: "commons",
       //   filename: "commons.js",
