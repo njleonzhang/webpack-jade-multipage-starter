@@ -22,7 +22,7 @@ var webpackConfig = {
   entry: entries,
   output: {
     path: './dist',
-    filename: 'static/[name].js',
+    filename: 'static/[name].js'
   },
   resolve: {
     extensions: ['', '.js', 'scss'],
@@ -56,11 +56,14 @@ var webpackConfig = {
     },
   plugins: [
       new ExtractTextPlugin('./static/[name].css'),
-      // new webpack.optimize.CommonsChunkPlugin({
-      //   name: "commons",
-      //   filename: "commons.js",
-      //   minChunks : Infinity
-      // })
+      new webpack.optimize.CommonsChunkPlugin({
+        name: "commons",
+        filename: "static/commons.js"
+      }),
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        'window.$' : 'jquery'
+      }),
       new webpack.HotModuleReplacementPlugin() //热加载
   ],
   devServer: {
@@ -77,7 +80,7 @@ pugTemplates.forEach(function(template) {
   var html = {
     filename:  fileName + ".html",
     template: template,
-    chunks: [fileName],
+    chunks: ['commons', fileName],
     inject: 'body'
   }
 

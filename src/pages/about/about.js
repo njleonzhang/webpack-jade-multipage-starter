@@ -1,4 +1,5 @@
 import 'components/base/base.js';
 import './about.scss';
 
-console.log('about');
+console.log('关于')
+// $('body');
