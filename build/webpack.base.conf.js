@@ -2,6 +2,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var glob = require("glob")
 var path = require("path")
+var webpack = require("webpack")
 
 var entryFiles = glob.sync("./src/pages/**/*.js")
 var entries = {}
@@ -54,14 +55,21 @@ var webpackConfig = {
       ]
     },
   plugins: [
-      new ExtractTextPlugin('./static/style.css')
+      new ExtractTextPlugin('./static/style.css'),
+      // new webpack.optimize.CommonsChunkPlugin({
+      //   name: "commons",
+      //   filename: "commons.js",
+      //   minChunks : Infinity
+      // })
     ]
 };
 
 jadeTemplates.forEach(function(template) {
+  var fileName = path.parse(template).name
   var html = {
-    filename:  path.parse(template).name + ".html",
+    filename:  fileName + ".html",
     template: template,
+    chunks: [fileName],
     inject: 'body'
   }
 
