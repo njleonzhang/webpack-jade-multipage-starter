@@ -1,0 +1,14 @@
+include ../head/head
+
+//- block vars
+  //- - var head = {}
+
+doctype html
+html(lang="zh-CN")
+  head
+    //- +head(head)
+    include ../head/head
+  body
+    main.main
+      block contents
+    include ../footer/footer
