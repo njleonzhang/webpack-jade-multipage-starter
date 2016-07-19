@@ -57,9 +57,8 @@ var webpackConfig = {
   plugins: [
       new ExtractTextPlugin('./static/[name].css'),
       new webpack.optimize.CommonsChunkPlugin({
-        names: "vendor",
-        filename : "./static/vendor.js",
-        minChunks : Infinity
+        name: "commons",
+        filename: "static/commons.js"
       }),
       new webpack.ProvidePlugin({
         $: 'jquery',
@@ -81,7 +80,7 @@ pugTemplates.forEach(function(template) {
   var html = {
     filename:  fileName + ".html",
     template: template,
-    chunks: [fileName],
+    chunks: ['commons', fileName],
     inject: 'body'
   }
 
