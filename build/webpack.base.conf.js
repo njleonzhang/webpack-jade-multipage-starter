@@ -61,7 +61,15 @@ var webpackConfig = {
       //   filename: "commons.js",
       //   minChunks : Infinity
       // })
-    ]
+      new webpack.HotModuleReplacementPlugin() //热加载
+  ],
+  devServer: {
+		contentBase: './',
+		host: 'localhost',
+		port: 9090,
+		inline: true,
+		hot: true,
+	}
 };
 
 jadeTemplates.forEach(function(template) {

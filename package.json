@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf ./dist/*; webpack --config build/webpack.base.conf.js"
+    "build": "rm -rf ./dist/*; webpack --config build/webpack.base.conf.js",
+    "server": "webpack-dev-server --config build/webpack.base.conf.js"
   },
   "author": "",
   "license": "ISC",
