@@ -1,11 +1,21 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var glob = require("glob");
-var path = require("path");
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var glob = require("glob")
+var path = require("path")
 
-var entries = glob.sync("./src/pages/**/*.js");
-console.log(entries);
-var jadeTemplates = glob.sync("./src/pages/**/*.jade");
+var entryFiles = glob.sync("./src/pages/**/*.js")
+var entries = {}
+
+// entry文件的名字不能重复
+entryFiles.forEach(function(file) {
+  var fileName = path.parse(file).name
+  if(fileName in entryFiles) {
+    console.error("entry文件名重复", fileName)
+  }
+  entries[fileName] = file
+});
+
+var jadeTemplates = glob.sync("./src/pages/**/*.jade")
 
 var webpackConfig = {
   entry: entries,

@@ -1,4 +1,6 @@
 import 'components/base/base.scss';
 import './about.scss';
 
-console.log('关于');
+module.exports = function() {
+  console.log('关于');
+}

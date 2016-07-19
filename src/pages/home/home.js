@@ -1,4 +1,6 @@
 import 'components/base/base.scss';
 import './home.scss';
 
-console.log("主页");
+module.exports = function() {
+  console.log("主页");
+}
