@@ -14,15 +14,6 @@ Object.keys(baseWebpackConfig.entry).forEach(function (name) {
 })
 
 var webpackConfig = merge(baseWebpackConfig, {
-  module: {
-    loaders: [
-      // 将sass抽成文件
-      {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract("css!postcss!sass")
-      },
-    ]
-  },
   // eval-source-map is faster for development
   devtool: '#eval-source-map',
   plugins: [

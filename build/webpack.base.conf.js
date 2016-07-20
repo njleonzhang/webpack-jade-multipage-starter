@@ -4,6 +4,7 @@ var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
 var glob = require("glob")
 var webpack = require('webpack')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 var entryFiles = glob.sync("./src/pages/**/*.js")
 var entries = {}
@@ -55,13 +56,18 @@ var webpackConfig = {
           presets: ['es2015']
         }
       },
+      // 将sass抽成文件
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract("css!postcss!sass")
+      },
       {
         test: /\.jade$/,
-        loader: 'jade-loader'
+        loader: 'jade'
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'file-loader',
+        loader: 'url',
         query: {
           limit: 10000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
