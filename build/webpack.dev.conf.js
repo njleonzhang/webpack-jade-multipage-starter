@@ -1,7 +1,7 @@
 var config = require('../config')
+var utils = require('./utils')
 var webpack = require('webpack')
 var merge = require('webpack-merge')
-var utils = require('./utils')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var baseWebpackConfig = require('./webpack.base.conf')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -15,7 +15,6 @@ Object.keys(baseWebpackConfig.entry).forEach(function (name) {
 
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
-    // loaders: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap })
     loaders: [
       // 将sass抽成文件
       {
@@ -30,22 +29,15 @@ var webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': config.dev.env
     }),
-    // new ExtractTextPlugin('./static/[name].css'),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    // https://github.com/ampedandwired/html-webpack-plugin
-    // new HtmlWebpackPlugin({
-    //   filename: 'index.html',
-    //   template: 'index.html',
-    //   inject: true
-    // })
     new webpack.optimize.CommonsChunkPlugin({
       name: "commons",
-      filename: "static/commons.js"
+      filename: utils.assetsPath('js/[name].js')
     }),
-    new ExtractTextPlugin('./static/[name].css'),
+    new ExtractTextPlugin(utils.assetsPath('css/[name].css')),
   ]
 })
 
@@ -58,7 +50,7 @@ pugTemplates.forEach(function(template) {
     chunks: ['commons', fileName],
     inject: 'body'
   }
-
+  // https://github.com/ampedandwired/html-webpack-plugin
   webpackConfig.plugins.push(new HtmlWebpackPlugin(html))
 })
 

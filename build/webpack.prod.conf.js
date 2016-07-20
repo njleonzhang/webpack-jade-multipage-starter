@@ -13,7 +13,6 @@ var env = process.env.NODE_ENV === 'testing'
 
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
-    // loaders: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true })
     loaders: [
       // 将sass抽成文件
       {
@@ -24,49 +23,27 @@ var webpackConfig = merge(baseWebpackConfig, {
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
-    // path: config.build.assetsRoot,
-    // filename: utils.assetsPath('js/[name].[chunkhash].js'),
+    path: config.build.assetsRoot,
+    filename: utils.assetsPath('js/[name].[chunkhash].js'),
     // chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
-    path: './dist',
-    filename: 'static/[name].js',
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/workflow/production.html
-    // new webpack.DefinePlugin({
-    //   'process.env': env
-    // }),
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compress: {
-    //     warnings: false
-    //   }
-    // }),
-    // new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': env
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
+    new webpack.optimize.OccurenceOrderPlugin(),
     // extract css into its own file
-    // new ExtractTextPlugin(utils.assetsPath('css/[name].[contenthash].css')),
-    new ExtractTextPlugin('./static/[name].css'),
-    // generate dist index.html with correct asset hash for caching.
-    // you can customize output by editing /index.html
-    // see https://github.com/ampedandwired/html-webpack-plugin
-    // split vendor js into its own file
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'vendor',
-    //   minChunks: function (module, count) {
-    //     // any required modules inside node_modules are extracted to vendor
-    //     return (
-    //       module.resource &&
-    //       /\.js$/.test(module.resource) &&
-    //       module.resource.indexOf(
-    //         path.join(__dirname, '../node_modules')
-    //       ) === 0
-    //     )
-    //   }
-    // }),
-    // // extract webpack runtime and module manifest to its own file in order to
-    // // prevent vendor hash from being updated whenever app bundle is updated
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'manifest',
-    //   chunks: ['vendor']
-    // })
+    new ExtractTextPlugin(utils.assetsPath('css/[name].[contenthash].css')),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "commons",
+      filename: utils.assetsPath('js/[name].[chunkhash].js')
+    }),
   ]
 })
 
@@ -94,8 +71,17 @@ pugTemplates.forEach(function(template) {
   var html = {
     filename:  fileName + ".html",
     template: template,
-    chunks: [fileName],
-    inject: 'body'
+    chunks: ['commons', fileName],
+    inject: 'body',
+    minify: {
+      removeComments: true,
+      collapseWhitespace: true,
+      removeAttributeQuotes: true
+      // more options:
+      // https://github.com/kangax/html-minifier#options-quick-reference
+    },
+    // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+    chunksSortMode: 'dependency'
   }
 
   webpackConfig.plugins.push(new HtmlWebpackPlugin(html))

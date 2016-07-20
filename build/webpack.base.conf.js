@@ -22,21 +22,19 @@ var webpackConfig = {
   output: {
     path: config.build.assetsRoot,
     publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
-    filename: 'static/[name].js',
+    filename: utils.assetsPath('js/[name].js'),
   },
   resolve: {
     extensions: ['', '.js', 'scss'],
-    // fallback: [path.join(__dirname, '../node_modules')],
+    fallback: [path.join(__dirname, '../node_modules')],
     alias: {
-      // 'src': path.resolve(__dirname, '../src'),
-      // 'assets': path.resolve(__dirname, '../src/assets'),
       'components': path.resolve(__dirname, '../src/components'),
       'pages': '../src/pages'
     }
   },
-  // resolveLoader: {
-  //   fallback: [path.join(__dirname, '../node_modules')]
-  // },
+  resolveLoader: {
+    fallback: [path.join(__dirname, '../node_modules')]
+  },
   module: {
     preLoaders: [
       {
@@ -50,7 +48,7 @@ var webpackConfig = {
       {
         test: /\.js$/,
         loader: 'babel',
-        // include: projectRoot,
+        include: projectRoot,
         exclude: /node_modules/,
         query: {
           presets: ['es2015']
