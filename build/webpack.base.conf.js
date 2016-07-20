@@ -25,9 +25,10 @@ var webpackConfig = {
     filename: utils.assetsPath('js/[name].js'),
   },
   resolve: {
-    extensions: ['', '.js', 'scss'],
+    extensions: ['', '.js', '.scss', '.jade'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
+      'src': path.resolve(__dirname, '../src'),
       'components': path.resolve(__dirname, '../src/components'),
       'pages': '../src/pages'
     }
@@ -55,9 +56,25 @@ var webpackConfig = {
         }
       },
       {
-        test: /\.pug$/,
-        loader: 'pug-html-loader'
+        test: /\.jade$/,
+        loader: 'jade-loader'
       },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'file-loader',
+        query: {
+          limit: 10000,
+          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+        }
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url',
+        query: {
+          limit: 10000,
+          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+        }
+      }
     ]
   },
   plugins: [
@@ -70,5 +87,5 @@ var webpackConfig = {
     formatter: require('eslint-friendly-formatter')
   },
 }
-
+// enhanced-require.config.js
 module.exports = webpackConfig

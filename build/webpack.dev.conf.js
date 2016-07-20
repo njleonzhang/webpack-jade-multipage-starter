@@ -41,7 +41,7 @@ var webpackConfig = merge(baseWebpackConfig, {
   ]
 })
 
-var pugTemplates = glob.sync("./src/pages/**/*.pug")
+var pugTemplates = glob.sync("./src/pages/**/*.jade")
 pugTemplates.forEach(function(template) {
   var fileName = path.parse(template).name
   var html = {
