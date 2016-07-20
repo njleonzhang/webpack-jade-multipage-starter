@@ -1,0 +1,16 @@
+extends ../../components/base/base
+
+block vars
+  - var title = "关于"
+
+block content
+  p "关于"
+  a(href='home.html') 去首页
+
+  span {{leon}}
+  {% if a == 100 %}
+  {% endif %}
+  
+  {% for i in lists %}
+  p {{leon}}
+  {% endfor %}

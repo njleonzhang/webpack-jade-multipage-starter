@@ -36,11 +36,16 @@ var pugTemplates = glob.sync("./src/pages/**/*.jade")
 pugTemplates.forEach(function(template) {
   var fileName = path.parse(template).name
   var html = {
-    filename:  fileName + ".html",
+    filename: fileName + ".html",
     template: template,
     chunks: ['commons', fileName],
     inject: 'body'
   }
+
+  if(/.+\.dj$/.test(fileName)){
+    html.chunks = ['commons', fileName.slice(0, [].lastIndexOf.call(fileName, '.'))]
+  }
+
   // https://github.com/ampedandwired/html-webpack-plugin
   webpackConfig.plugins.push(new HtmlWebpackPlugin(html))
 })

@@ -56,6 +56,12 @@ pugTemplates.forEach(function(template) {
     chunksSortMode: 'dependency'
   }
 
+  // 如果是jdango template
+  if(/.+\.dj$/.test(fileName)){
+    html.filename = 'template/' + fileName + ".html"
+    html.chunks = ['commons', fileName.slice(0, [].lastIndexOf.call(fileName, '.'))]
+  }
+
   webpackConfig.plugins.push(new HtmlWebpackPlugin(html))
 })
 
